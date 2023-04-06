@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\Http\Livewire\Utilisateurs;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +17,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+
+Auth::routes();
+
+
+Route::prefix('admin')->name('admin.')->middleware("auth", "auth.admin")->group(function(){
+    Route::prefix('habilitations')->name('habilitations.')->group(function(){
+        Route::get('/', [HomeController::class, 'index']);
+        Route::get('/utilisateurs', Utilisateurs::class)->name('users.index');
+        Route::get('/roles', [admin\UsersController::class, "index"])->name('roles.index');
+    });
 });
+
+Route::get('/', [HomeController::class, 'index'])->name('home');

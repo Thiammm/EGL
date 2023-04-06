@@ -18,9 +18,15 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'nom',
+        'prenom',
+        'sexe',
         'email',
-        'password',
+        'pieceIdentite',
+        'noPieceIdentite',
+        'telephone1',
+        'telephone2',
+        'imgUrl',
     ];
 
     /**
@@ -41,4 +47,31 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function locations(){
+        return $this->hasMany(Location::class);
+    }
+
+    public function paiements(){
+        return $this->hasMany(Paiement::class);
+    }
+
+    public function roles(){
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function permissions(){
+        return $this->belongsToMany(Permission::class);
+    }
+
+    public function isAdmin(){
+        return $this->roles()->where('nom', 'admin')->first();
+    }
+    public function isManager(){
+        return $this->roles()->where('nom', 'manager')->first();
+    }
+    public function isEmploye(){
+        return $this->roles()->where('nom', 'employe')->first();
+    }
+
 }
