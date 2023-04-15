@@ -64,6 +64,7 @@ class Utilisateurs extends Component
 
     public function goToList(){
         $this->isBtnClick = "liste";
+        $this->rolesUpdated = [];
     }
 
     public function addUser(){

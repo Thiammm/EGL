@@ -5,6 +5,7 @@
                 <p class="card-title text-center"><i class="fas fa-user-plus fa-2x"></i> Nouvel utilisateur</p>
             </div>
             <form wire:submit.prevent = "addUser()">
+                @csrf
                 <div class="card-body">
                     <div class="row">
 
