@@ -170,11 +170,26 @@ class Utilisateurs extends Component
         dd($permission->nom);
     }
 
+    public function confirmReinitialisation($id){
+        $user = User::find($id);
+        $this->dispatchBrowserEvent('showConfirmMessageReset', [
+            'title' => 'Etes-vous sûr de continuer',
+            'text' => 'vous êtes entrainer de reinialiser le mot de pass'.$user->prenom.' '.$user->nom,
+            'icon' => 'warning',
+            'id' => $id,
+            'showCancelButton' => true,
+            'confirmButtonColor' => '#3085d6',
+            'cancelButtonColor' => '#d33',
+            'confirmButtonText' => 'continuer',
+        ]);
+        
+    }
+
     public function reinitialiser($id){
         $user = User::find($id);
-        $user->password = "password";
+        $user->password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi';
         $user->save();
-        $this->showSuccessMessage('password reseted');
+        $this->showSuccessMessage('password reseted for '.$user->prenom." ".$user->nom);
     }
 
 }
