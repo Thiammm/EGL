@@ -1,5 +1,5 @@
 <div class="card m-4 mt-5">
-    <div class="card-header bg-primary d-flex align-items-center">
+    <div class="card-header bg-gradient-primary d-flex align-items-center">
         <h3 class="card-title flex-grow-1"><i class="fas fa-users fa-2x"></i> Liste des Utilisateurs</h3>
         <div class="card-tools">
             <div class="input-group input-group-sm d-flex align-items-center">
@@ -67,6 +67,14 @@
             Swal.fire(e.detail).then((result)=>{
                 if(result.isConfirmed){
                 @this.deleteUser(e.detail.id)
+                }
+            })
+        });
+
+        window.addEventListener("showConfirmMessageReset", function(e){
+            Swal.fire(e.detail).then((result)=>{
+                if(result.isConfirmed){
+                @this.reinitialiser(e.detail.id)
                 }
             })
         });

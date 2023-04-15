@@ -2,7 +2,7 @@
     <div class="col-md-6 mt-4">
         <div class="card">
             <div class="card-header bg-primary">
-                <p class="card-title text-center"><i class="fas fa-user-plus fa-2x"></i> Nouvel utilisateur</p>
+                <p class="card-title text-center"><i class="fas fa-user-plus fa-2x"></i> Modifier utilisateur</p>
             </div>
             <form wire:submit.prevent = "updateUser()">
                 @csrf
@@ -108,7 +108,7 @@
                 
                 
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary" wire:click.prevent="updateUser({{$newUser['id']}})">Enregistrer</button>
+                    <button type="submit" class="btn btn-primary" wire:click.prevent="updateUser({{$newUser['id']}})">Modifier</button>
                     <button type="button" class="btn btn-danger" wire:click.prevent="goToList()">Retourner à la liste des utilisateurs</button>
                 </div>
                 
@@ -120,16 +120,16 @@
 
         <div class="card">
             <div class="card-header bg-primary">
-                <div class="card-title"><i class=""></i>Authentification</div>
+                <div class="card-title"><i class="fas fa-key fa-2x"></i>   Authentification</div>
             </div>
             <div class="card-body">
-                <ul><li><a href="" wire:click.prevent='reinitialiser({{$user_id}})'>réinialiser le mot de passe  </a> (pardefaut: "pasword") </li></ul>
+                <ul><li><a href="" wire:click.prevent='confirmReinitialisation({{$user_id}})'>réinialiser le mot de passe  </a> (pardefaut: "pasword") </li></ul>
             </div>
         </div>
 
         <div class="card">
             <div class="card-header bg-primary">
-                <div class="card-title"><i class="fas fa-fingerprint fa-2x"></i>  Roles et Permissions</div>
+                <div class="card-title"><i class="fas fa-fingerprint fa-2x"></i>    Roles et Permissions</div>
             </div>
             <div class="card-body">
                 <div id="accordion">
