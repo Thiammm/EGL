@@ -29,5 +29,8 @@
         
         <x-menu />
     </div>
-
+    <div class="sidebar-custom">
+        <a href="#" class="btn btn-link"><i class="fas fa-cogs"></i></a>
+        <a href="#" class="btn btn-secondary hide-on-collapse pos-right">Help</a>
+    </div>
 </aside>

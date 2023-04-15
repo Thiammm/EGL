@@ -29,8 +29,8 @@ class ClientFactory extends Factory
             'adresse' => "$ville, $pays",
             'telephone1' => $this->faker->phoneNumber(),
             'telephone2' => $this->faker->phoneNumber(),
-            'sexe' => array_rand(["H", "F"], 1),
-            'pieceIdentite' => array_rand(["CNI", "PERMIS DE CONDUIRE", "PASSPORT"],),
+            'sexe' => array_rand(array_flip(["H", "F"]), 1),
+            'pieceIdentite' => array_rand(array_flip(["CNI", "PERMIS DE CONDUIRE", "PASSPORT"]), 1),
             'noPieceIdentite' => $this->faker->creditCardNumber(),
         ];
     }

@@ -19,7 +19,7 @@ class ProprieteArticleFactory extends Factory
         return [
             'nom' => $this->faker->word(),
             'estObligatoire' => rand(0, 1),
-            'type_article_id' => rand(1, 4),
+            'type_article_id' => rand(1, 5),
         ];
     }
 }

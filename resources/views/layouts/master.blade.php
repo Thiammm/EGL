@@ -9,9 +9,9 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
     </head>
-    <body class="hold-transition sidebar-mini">
+    <body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
         <div class="wrapper">
-
+            
             <x-header />
 
 
@@ -41,9 +41,26 @@
 
                 <strong>&copy; b_project </strong> All rights reserved.
             </footer>
+
+            <aside class="control-sidebar control-sidebar-dark">
+                <!-- Control sidebar content goes here -->
+            </aside>
         </div>
 
         @livewireScripts
-
+        
+        {{-- <script>
+            window.addEventListener("showSuccessMessage", function(e){
+                Swal.fire(e.detail)
+            });
+    
+            window.addEventListener("showConfirmMessage", function(e){
+                Swal.fire(e.detail).then((result)=>{
+                    if(result.isConfirmed){
+                    }
+                })
+            });
+            
+        </script> --}}
     </body>
 </html>

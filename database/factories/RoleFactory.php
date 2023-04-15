@@ -17,7 +17,7 @@ class RoleFactory extends Factory
     public function definition(): array
     {
         return [
-            'nom' => array_rand(["admin", "employe", "manager", "super-admin"], 1),
+            'nom' => array_rand(array_flip(["admin", "employe", "manager", "super-admin"]), 1),
         ];
     }
 }

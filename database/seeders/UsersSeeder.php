@@ -21,5 +21,9 @@ class UsersSeeder extends Seeder
 
         $user3 = User::find(3);
         $user3->roles()->attach(3);
+
+        $user4 = User::find(4);
+        $user4->roles()->attach(4);
+
     }
 }

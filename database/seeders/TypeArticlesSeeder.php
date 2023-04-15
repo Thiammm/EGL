@@ -14,19 +14,23 @@ class TypeArticlesSeeder extends Seeder
     public function run(): void
     {
         TypeArticle::create([
-            'nom' => 'Television'
+            'nom' => 'Materiels Electronique'
         ]);
         
         TypeArticle::create([
-            'nom' => 'Salle'
+            'nom' => 'Immobilier'
         ]);
 
         TypeArticle::create([
-            'nom' => 'Bache'
+            'nom' => 'Transports'
         ]);
 
         TypeArticle::create([
-            'nom' => 'Sonnorisation'
+            'nom' => 'Equipements évènementiels'
+        ]);
+
+        TypeArticle::create([
+            'nom' => 'Equipements Agricoles'
         ]);
     }
 }
