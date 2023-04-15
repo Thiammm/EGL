@@ -42,9 +42,6 @@
                 <strong>&copy; b_project </strong> All rights reserved.
             </footer>
 
-            <aside class="control-sidebar">
-                <!-- Control sidebar content goes here -->
-            </aside>
         </div>
 
         @livewireScripts

@@ -154,9 +154,6 @@
                         </div>
                     @endforeach 
                 </div>
-                <div>
-                    <button class="btn btn-primary">Modifier les roles</button>
-                </div>
                 
             </div>
         </div>
