@@ -37,3 +37,6 @@ use Illuminate\Support\Str;
     function contient($conteneur, $contenu){
         return Str::contains($conteneur, $contenu);
     }
+
+
+    

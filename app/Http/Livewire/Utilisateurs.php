@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Role;
 use App\Models\User;
 use Livewire\Component;
+use App\Models\Permission;
 use Livewire\WithPagination;
 
 class Utilisateurs extends Component
@@ -14,11 +15,13 @@ class Utilisateurs extends Component
     protected $paginationTheme = "bootstrap";
     public $isBtnClick = "liste";
     public  $userRoles = [];
-    public  $userPermissions;
+    public  $userPermissions = [];
     public $rolesUpdated = [];
+    public $permissionsUpdated = [];
     public $newUser = [];
     public $user_id;
-    public $allRoles;
+    public $allRoles = [];
+    public $allPermissions = [];
 
     protected $rules = [
         "newUser.prenom" => "required",
@@ -48,6 +51,8 @@ class Utilisateurs extends Component
     //     "newUser.noPieceIdentite" => "Numero Piece d'Identite",
     // ];
 
+
+
     public function render()
     {
         return view('livewire.utilisateurs.index',[
@@ -64,8 +69,19 @@ class Utilisateurs extends Component
 
     public function goToList(){
         $this->isBtnClick = "liste";
-        $this->rolesUpdated = [];
     }
+
+    public function showSuccessMessage($message){
+        $this->dispatchBrowserEvent('showSuccessMessage', [
+            'title' => $message,
+            'timer' => 3000,
+            'icon' => 'success',
+            'toast' => true,
+            'showConfirmButton' => false,
+            'position' => 'top-right',
+        ]);
+    }
+
 
     public function addUser(){
         $donneesValides = $this->validate();
@@ -73,15 +89,7 @@ class Utilisateurs extends Component
         $donneesValides["newUser"]["imgUrl"] = "sdfdsfsfsdfdfdsfsdfs";
         User::create($donneesValides["newUser"]); 
         $this->newUser = [];
-        $this->dispatchBrowserEvent('showSuccessMessage', [
-            'title' => 'utilisateur cree avec succes',
-            'timer' => 3000,
-            'icon' => 'success',
-            'toast' => true,
-            'showConfirmButton' => false,
-            'position' => 'top-right',
-        ]);
-
+        $this->showSuccessMessage('user created successfuly');
     }
 
     public function confirmDelete($id){
@@ -104,14 +112,7 @@ class Utilisateurs extends Component
         $this->isBtnClick = "delete";
         $user = User::find($id);
         $user->delete();
-        $this->dispatchBrowserEvent('showSuccessMessage', [
-            'title' => 'Vous avez supprrimer '.$user->prenom." ".$user->nom,
-            'timer' => 3000,
-            'icon' => 'success',
-            'toast' => true,
-            'showConfirmButton' => false,
-            'position' => 'top-right',
-        ]);
+        $this->showSuccessMessage('vous avez supprimer '.$user->prenom." ".$user->nom);
     }
 
     public function editUser($id){
@@ -120,10 +121,26 @@ class Utilisateurs extends Component
         $user = User::find($id);
         $this->newUser = $user;
         $this->allRoles = Role::all();
+        $this->allPermissions = Permission::all();
         $this->userRoles = $user->roles;
+        $this->userPermissions = $user->permissions;
+        foreach($this->allRoles as $role){
+            $nom = $role->nom;
+            $this->rolesUpdated[$nom] = null;
+        }
         foreach($this->userRoles as $userRole){
             $nom = $userRole->nom;
             $this->rolesUpdated[$nom] = true;
+        }
+
+        foreach($this->allPermissions as $permission){
+            $nom = $permission->nom;
+           $this->permissionsUpdated[$nom] = null; 
+        }
+
+        foreach($this->userPermissions as $userPermission){
+            $nom = $userPermission->nom;
+            $this->permissionsUpdated[$nom] = true;
         }
     }
 
@@ -131,15 +148,7 @@ class Utilisateurs extends Component
         $user = User::find($id);
         $donneeValides = $this->validate();
         $user->update($donneeValides["newUser"]);
-        
-        $this->dispatchBrowserEvent('showSuccessMessage', [
-            'title' => 'la page de modification',
-            'timer' => 3000,
-            'icon' => 'warning',
-            'toast' => true,
-            'showConfirmButton' => false,
-            'position' => 'top-right',
-        ]);
+        $this->showSuccessMessage('user updated');
     }
 
     public function updateRoles($id, $nom){
@@ -155,19 +164,24 @@ class Utilisateurs extends Component
             $user->save();
     }
 
+    public function updatePermissions($user_id, $permission_id){
+        $user = User::find($user_id);
+        $permission = Permission::find($permission_id);
+        if($this->permissionsUpdated[$permission->nom] === true){
+            $user->permissions()->attach($permission_id);
+        }
+        else{
+            $user->permissions()->detach($permission_id);
+        }
+
+        $user->save();
+    }
+
     public function reinitialiser($id){
         $user = User::find($id);
         $user->password = "password";
         $user->save();
-        $this->dispatchBrowserEvent('showSuccessMessage', [
-            'title' => $user->password,
-            'timer' => 3000,
-            'icon' => 'warning',
-            'toast' => true,
-            'showConfirmButton' => false,
-            'position' => 'top-right',
-        ]);
-
+        $this->showSuccessMessage('password reseted');
     }
 
 }

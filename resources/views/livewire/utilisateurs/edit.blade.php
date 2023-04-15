@@ -141,18 +141,34 @@
                                         {{$role->nom}}
                                     </a>
                                 </h4>
-
-                                
-                                
-                                    <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                        <input type="checkbox" wire:model = "rolesUpdated.{{$role->nom}}" class="custom-control-input" id="{{$role->nom}}"  wire:change='updateRoles({{$user_id}}, "{{$role->nom}}")' >
-                                        <label for="{{$role->nom}}" class="custom-control-label">activé</label>
-                                    </div>
-                                
-                                
+                                <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                    <input type="checkbox" wire:model = "rolesUpdated.{{$role->nom}}" class="custom-control-input" id="{{$role->nom}}"  wire:change='updateRoles({{$user_id}}, "{{$role->nom}}")' >
+                                    <label for="{{$role->nom}}" class="custom-control-label">@if($rolesUpdated[$role->nom])activé@else Desactivé @endif</label>
+                                </div>
                             </div>
                         </div>
-                    @endforeach 
+                    @endforeach
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <th>Permissions</th>
+                            <th></th>
+                        </thead>
+                        <tbody>
+                            @foreach ($allPermissions as $permission)
+                                <tr>
+                                    <td>{{$permission->nom}}</td>
+                                    <td>
+                                        <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                            <input type="checkbox" wire:model='permissionsUpdated.{{$permission->nom}}' class="custom-control-input" id="{{$permission->nom}}" wire:change='updatePermissions({{$user_id}}, {{$permission->id}})'>
+                                            <label for="{{$permission->nom}}" class="custom-control-label">@if($permissionsUpdated[$permission->nom])Activé @else Desactivé @endif</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            
+                        </tbody>
+                    </table>
                 </div>
                 
             </div>
