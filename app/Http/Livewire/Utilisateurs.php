@@ -175,7 +175,6 @@ class Utilisateurs extends Component
                 $user->roles()->detach($role->id);
             }
 
-            $user->save();
     }
 
     public function updatePermissions($user_id, $permission_id){
@@ -188,7 +187,6 @@ class Utilisateurs extends Component
             $user->permissions()->detach($permission->id);
         }
 
-        $user->save();
     }
 
     public function confirmReinitialisation($id){
