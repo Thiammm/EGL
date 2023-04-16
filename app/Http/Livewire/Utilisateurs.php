@@ -181,7 +181,14 @@ class Utilisateurs extends Component
     public function updatePermissions($user_id, $permission_id){
         $user = User::find($user_id);
         $permission = Permission::find($permission_id);
-        dd($permission->nom);
+        if($this->permissionsUpdated[$permission->nom] === true){
+            $user->permissions()->attach($permission->id);
+        }
+        else{
+            $user->permissions()->detach($permission->id);
+        }
+
+        $user->save();
     }
 
     public function confirmReinitialisation($id){
