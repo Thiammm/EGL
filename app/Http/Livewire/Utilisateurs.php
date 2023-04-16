@@ -99,7 +99,7 @@ class Utilisateurs extends Component
 
     public function addUser(){
         $donneesValides = $this->validate();
-        $donneesValides["newUser"]["password"] = "password";
+        $donneesValides["newUser"]["password"] = "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi";
         $donneesValides["newUser"]["imgUrl"] = "sdfdsfsfsdfdfdsfsdfs";
         User::create($donneesValides["newUser"]); 
         $this->newUser = [];
@@ -110,7 +110,7 @@ class Utilisateurs extends Component
         $user = User::find($id);
         $this->dispatchBrowserEvent('showConfirmMessage', [
             'title' => 'Etes-vous sûr de continuer',
-            'text' => 'vous êtes entrainer de supprimer '.$user->prenom.' '.$user->nom,
+            'text' => 'vous êtes entrain de supprimer '.$user->prenom.' '.$user->nom,
             'icon' => 'warning',
             'id' => $id,
             'showCancelButton' => true,
@@ -175,7 +175,6 @@ class Utilisateurs extends Component
                 $user->roles()->detach($role->id);
             }
 
-            $user->save();
     }
 
     public function updatePermissions($user_id, $permission_id){
@@ -188,14 +187,13 @@ class Utilisateurs extends Component
             $user->permissions()->detach($permission->id);
         }
 
-        $user->save();
     }
 
     public function confirmReinitialisation($id){
         $user = User::find($id);
         $this->dispatchBrowserEvent('showConfirmMessageReset', [
             'title' => 'Etes-vous sûr de continuer',
-            'text' => 'vous êtes entrainer de reinialiser le mot de pass'.$user->prenom.' '.$user->nom,
+            'text' => 'vous êtes entrain de reinitialiser le mot de pass de '.$user->prenom.' '.$user->nom,
             'icon' => 'warning',
             'id' => $id,
             'showCancelButton' => true,
