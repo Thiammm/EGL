@@ -24,6 +24,7 @@ class Utilisateurs extends Component
     public $user_id;
     public $allRoles = [];
     public $allPermissions = [];
+    public $search = "";
 
     // protected $rules = [
     //     "newUser.prenom" => "required",
@@ -57,8 +58,9 @@ class Utilisateurs extends Component
 
     public function render()
     {
+        $searchCritary = "%".$this->search."%";
         return view('livewire.utilisateurs.index',[
-            'users' => User::latest('created_at')->paginate(5)
+            'users' => User::latest('created_at')->where("prenom", "like", $searchCritary)->paginate(5)
         ])
         ->extends('layouts.master')
         ->section('content');

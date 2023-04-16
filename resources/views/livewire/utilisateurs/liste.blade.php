@@ -4,7 +4,7 @@
         <div class="card-tools">
             <div class="input-group input-group-sm d-flex align-items-center">
                 <a href="" class="text-white" wire:click.prevent="goToAddUser()"><i class="fas fa-user-plus"></i> Nouvel utilisateur</a>
-                <input type="text" name="table_search" class="form-control ml-3" placeholder="Search">
+                <input type="text" wire:model.debounce='search' class="form-control ml-3" placeholder="Search">
                 <div class="input-group-append">
                     <button type="submit" class="btn btn-default">
                     <i class="fas fa-search"></i>

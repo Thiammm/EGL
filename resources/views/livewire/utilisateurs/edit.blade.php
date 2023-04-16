@@ -137,10 +137,10 @@
                     @foreach($allRoles as $role)
                         <div class="card">
                             <div class="card-header d-flex justify-content-between">
-                                <h4 class="card-title flex-grow-1">
-                                    <a data-parent="#accordion" href="" aria-expanded="true">
+                                <h4 class="card-title text-primary flex-grow-1">
+                                    {{-- <a data-parent="#accordion" wire:click.prevent='' href="" aria-expanded="true"> --}}
                                         {{$role->nom}}
-                                    </a>
+                                    {{-- </a> --}}
                                 </h4>
                                 <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
                                     <input type="checkbox" wire:model = "rolesUpdated.{{$role->nom}}" class="custom-control-input" id="{{$role->nom}}">
@@ -153,7 +153,7 @@
                         {{-- <div class="card-body"> --}}
                             <table class="table">
                                 <thead>
-                                    <th>Permissions</th>
+                                    <th><h4>Permissions</h4></th>
                                     <th></th>
                                 </thead>
                                 <tbody>
