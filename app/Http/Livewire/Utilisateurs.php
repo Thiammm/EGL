@@ -6,6 +6,7 @@ use App\Models\Role;
 use App\Models\User;
 use Livewire\Component;
 use App\Models\Permission;
+use Illuminate\Validation\Rule;
 use Livewire\WithPagination;
 
 class Utilisateurs extends Component
@@ -23,16 +24,16 @@ class Utilisateurs extends Component
     public $allRoles = [];
     public $allPermissions = [];
 
-    protected $rules = [
-        "newUser.prenom" => "required",
-        "newUser.nom" => "required",
-        "newUser.sexe" => "required",
-        "newUser.email" => "required|email|unique:users,email",
-        "newUser.telephone1" => "required|numeric",
-        "newUser.telephone2" => "numeric",
-        "newUser.pieceIdentite" => "required",
-        "newUser.noPieceIdentite" => "required",
-    ];
+    // protected $rules = [
+    //     "newUser.prenom" => "required",
+    //     "newUser.nom" => "required",
+    //     "newUser.sexe" => "required",
+    //     "newUser.email" => ["required", "email", Role::unique("users", "email")->ignore('$this->user_id')],
+    //     "newUser.telephone1" => "required|numeric",
+    //     "newUser.telephone2" => "numeric",
+    //     "newUser.pieceIdentite" => "required",
+    //     "newUser.noPieceIdentite" => "required",
+    // ];
 
     protected $messages = [
         'required' => 'le champ est obligatoire',
@@ -61,6 +62,19 @@ class Utilisateurs extends Component
         ->extends('layouts.master')
         ->section('content');
 
+    }
+
+    public function rules(){
+        return [
+            "newUser.prenom" => "required",
+            "newUser.nom" => "required",
+            "newUser.sexe" => "required",
+            "newUser.email" => ["required", "email", Rule::unique("users", "email")->ignore($this->user_id)],
+            "newUser.telephone1" => "required|numeric",
+            "newUser.telephone2" => "numeric",
+            "newUser.pieceIdentite" => "required",
+            "newUser.noPieceIdentite" => "required",
+        ];
     }
 
     public function goToAddUser(){
