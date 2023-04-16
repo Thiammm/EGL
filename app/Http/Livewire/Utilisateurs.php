@@ -6,8 +6,9 @@ use App\Models\Role;
 use App\Models\User;
 use Livewire\Component;
 use App\Models\Permission;
-use Illuminate\Validation\Rule;
 use Livewire\WithPagination;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 
 class Utilisateurs extends Component
 {
@@ -122,7 +123,6 @@ class Utilisateurs extends Component
     }
 
     public function deleteUser($id){
-    
         $this->isBtnClick = "delete";
         $user = User::find($id);
         $user->delete();
@@ -165,16 +165,41 @@ class Utilisateurs extends Component
         $this->showSuccessMessage('user updated');
     }
 
-    public function updateRoles($id, $nom){
+    public function updateRolesPermissions($id){
         $user = User::find($id);
-        $role = Role::all()->where('nom', $nom)->first();
-            if($this->rolesUpdated[$nom] === true){
+        $roles = Role::all();
+        $permissions = Permission::all();
+        DB::table('role_user')->where("user_id", $id)->delete();
+        DB::table('permission_user')->where("user_id", $id)->delete();
+        foreach($roles as $role){
+            if($this->rolesUpdated[$role->nom]){
                 $user->roles()->attach($role->id);
             }
             else{
                 $user->roles()->detach($role->id);
             }
+        };
 
+        foreach($permissions as $permission){
+            if($this->permissionsUpdated[$permission->nom]){
+                $user->permissions()->attach($permission->id);
+            }
+            else{
+                $user->permissions()->detach($permission->id);
+            }
+        }
+        $this->showSuccessMessage('les mises à jour ont été enrégistrer avec succès');
+    }
+
+    public function updateRoles($id, $nom){
+        $user = User::find($id);
+        $role = Role::all()->where('nom', $nom)->first();
+            // if($this->rolesUpdated[$nom] === true){
+            //     $user->roles()->attach($role->id);
+            // }
+            // else{
+            //     $user->roles()->detach($role->id);
+            // }
     }
 
     public function updatePermissions($user_id, $permission_id){
@@ -186,7 +211,6 @@ class Utilisateurs extends Component
         else{
             $user->permissions()->detach($permission->id);
         }
-
     }
 
     public function confirmReinitialisation($id){

@@ -130,6 +130,7 @@
         <div class="card">
             <div class="card-header bg-primary">
                 <div class="card-title"><i class="fas fa-fingerprint fa-2x"></i>    Roles et Permissions</div>
+                <button class="btn bg-gradient-success float-right" wire:click='updateRolesPermissions({{$user_id}})'>Mettre à jour les modifications</button>
             </div>
             <div class="card-body">
                 <div id="accordion">
@@ -142,33 +143,37 @@
                                     </a>
                                 </h4>
                                 <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                    <input type="checkbox" wire:model = "rolesUpdated.{{$role->nom}}" class="custom-control-input" id="{{$role->nom}}"  wire:change='updateRoles({{$user_id}}, "{{$role->nom}}")' >
+                                    <input type="checkbox" wire:model = "rolesUpdated.{{$role->nom}}" class="custom-control-input" id="{{$role->nom}}">
                                     <label for="{{$role->nom}}" class="custom-control-label">@if($rolesUpdated[$role->nom])activé@else Desactivé @endif</label>
                                 </div>
                             </div>
                         </div>
                     @endforeach
+                    <div class="card">
+                        {{-- <div class="card-body"> --}}
+                            <table class="table">
+                                <thead>
+                                    <th>Permissions</th>
+                                    <th></th>
+                                </thead>
+                                <tbody>
+                                    @foreach ($allPermissions as $permission)
+                                        <tr>
+                                            <td>{{$permission->nom}}</td>
+                                            <td>
+                                                <div class="custom-control float-right custom-switch custom-switch-off-danger custom-switch-on-success">
+                                                    <input type="checkbox" wire:model='permissionsUpdated.{{$permission->nom}}' class="custom-control-input" id="{{$permission->nom}}">
+                                                    <label for="{{$permission->nom}}" class="custom-control-label">@if($permissionsUpdated[$permission->nom])Activé @else Desactivé @endif</label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach    
+                                </tbody>
+                            </table>
+                        {{-- </div> --}}
+                        
+                    </div>   
 
-                    <table class="table table-bordered">
-                        <thead>
-                            <th>Permissions</th>
-                            <th></th>
-                        </thead>
-                        <tbody>
-                            @foreach ($allPermissions as $permission)
-                                <tr>
-                                    <td>{{$permission->nom}}</td>
-                                    <td>
-                                        <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                            <input type="checkbox" wire:model='permissionsUpdated.{{$permission->nom}}' class="custom-control-input" id="{{$permission->nom}}" wire:change='updatePermissions({{$user_id}}, {{$permission->id}})'>
-                                            <label for="{{$permission->nom}}" class="custom-control-label">@if($permissionsUpdated[$permission->nom])Activé @else Desactivé @endif</label>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            
-                        </tbody>
-                    </table>
                 </div>
                 
             </div>
