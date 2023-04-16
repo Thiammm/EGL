@@ -237,4 +237,12 @@ class Utilisateurs extends Component
         $this->showSuccessMessage('password reseted for '.$user->prenom." ".$user->nom);
     }
 
+
+    public function setPage($url){
+        $this->currentPage = explode('pag=', $url)[1];
+        paginator::currentPageResolver(function(){
+            return $this->currentPage;
+        });
+    }
+
 }
