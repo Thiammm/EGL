@@ -12,8 +12,8 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="prenom">Prenom</label>
-                                <input type="text" wire:model="newUser.prenom" id="prenom" class="form-control @error("newUser.prenom")is-invalid @enderror" placeholder="Prenom" } value="{{old("newUser.prenom")}}" />
-                                @error("newUser.prenom")
+                                <input type="text" wire:model="editUser.prenom" id="prenom" class="form-control @error("editUser.prenom")is-invalid @enderror" placeholder="Prenom" } value="{{old("editUser.prenom")}}" />
+                                @error("editUser.prenom")
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -23,8 +23,8 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="nom">Nom</label>
-                                <input type="text" wire:model="newUser.nom" id="nom" class="form-control @error("newUser.nom") is-invalid @enderror" placeholder="Nom" value="{{old("newUser.nom")}}" />
-                                @error("newUser.nom")
+                                <input type="text" wire:model="editUser.nom" id="nom" class="form-control @error("editUser.nom") is-invalid @enderror" placeholder="Nom" value="{{old("editUser.nom")}}" />
+                                @error("editUser.nom")
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -35,21 +35,21 @@
 
                     <div class="form-group">
                         <label for="sexe">Sexe</label>
-                        <select wire:model="newUser.sexe" id="sexe" class="form-control @error("newUser.sexe")is-invalid @enderror" value="{{old('newUser.sexe')}}">
+                        <select wire:model="editUser.sexe" id="sexe" class="form-control @error("editUser.sexe")is-invalid @enderror" value="{{old('editUser.sexe')}}">
                             <option value="">------------</option>
                             <option value="H">Homme</option>
                             <option value="F">Femme</option>
                         </select>
-                        @error("newUser.sexe")
+                        @error("editUser.sexe")
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" wire:model="newUser.email" id="email" class="form-control @error("newUser.email")is-invalid @enderror" placeholder="Votre Email" value="{{old("newUser.email")}}" />
+                        <input type="email" wire:model="editUser.email" id="email" class="form-control @error("editUser.email")is-invalid @enderror" placeholder="Votre Email" value="{{old("editUser.email")}}" />
 
-                        @error("newUser.email")
+                        @error("editUser.email")
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -59,8 +59,8 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="telephone1">Telephone 1</label>
-                                <input type="tel" wire:model="newUser.telephone1" id="telephone1" class="form-control @error("newUser.telephone1")is-invalid @enderror" placeholder="Telephone 1" value="{{old("newUser.telphone1")}}" />
-                                @error("newUser.telephone1")
+                                <input type="tel" wire:model="editUser.telephone1" id="telephone1" class="form-control @error("editUser.telephone1")is-invalid @enderror" placeholder="Telephone 1" value="{{old("editUser.telphone1")}}" />
+                                @error("editUser.telephone1")
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -70,8 +70,8 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="telephone2">Telephone 2</label>
-                                <input type="tel" wire:model="newUser.telephone2" id="telephone2" class="form-control @error("newUser.telephone2")is-invalid @enderror" placeholder="Telephone 2" value="{{old("newUser.telephone2")}}" />
-                                @error("newUser.telephone2")
+                                <input type="tel" wire:model="editUser.telephone2" id="telephone2" class="form-control @error("editUser.telephone2")is-invalid @enderror" placeholder="Telephone 2" value="{{old("editUser.telephone2")}}" />
+                                @error("editUser.telephone2")
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -80,21 +80,21 @@
                     </div>
 
                     <div class="form-group">
-                        <select wire:model="newUser.pieceIdentite" id="pieceidentite" class="form-control @error("newUser.pieceIdentite")is-invalid @enderror" value="old('newUser.pieceIdentite')" value="{{old("newUser.pieceIdentite")}}">
+                        <select wire:model="editUser.pieceIdentite" id="pieceidentite" class="form-control @error("editUser.pieceIdentite")is-invalid @enderror" value="old('editUser.pieceIdentite')" value="{{old("editUser.pieceIdentite")}}">
                             <option value="">----------------</option>
                             <option value="CNI">CNI</option>
                             <option value="PERMIS DE CONDUIRE">PERMIS DE CONDUIRE</option>
                             <option value="PASSPORT">PASSPORT</option>
                         </select>
-                        @error("newUser.pieceIdentite")
+                        @error("editUser.pieceIdentite")
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="form-group">
                         <label for="nopieceidentite">Numéro de pièce d'identité</label>
-                        <input type="text" wire:model="newUser.noPieceIdentite" id="nopieceidentite" class="form-control @error("newUser.noPieceIdentite")is-invalid @enderror" value="{{old("newUser.noPieceIdentite")}}" />
-                        @error("newUser.noPieceIdentite")
+                        <input type="text" wire:model="editUser.noPieceIdentite" id="nopieceidentite" class="form-control @error("editUser.noPieceIdentite")is-invalid @enderror" value="{{old("editUser.noPieceIdentite")}}" />
+                        @error("editUser.noPieceIdentite")
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -108,7 +108,7 @@
                 
                 
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary" wire:click.prevent="updateUser({{$newUser['id']}})">Modifier</button>
+                    <button type="submit" class="btn btn-primary" wire:click.prevent="updateUser({{$editUser['id']}})">Modifier</button>
                     <button type="button" class="btn btn-danger" wire:click.prevent="goToList()">Retourner à la liste des utilisateurs</button>
                 </div>
                 
@@ -130,45 +130,50 @@
         <div class="card">
             <div class="card-header bg-primary">
                 <div class="card-title"><i class="fas fa-fingerprint fa-2x"></i>    Roles et Permissions</div>
+                <button class="btn bg-gradient-success float-right" wire:click='updateRolesPermissions({{$user_id}})'>Mettre à jour les modifications</button>
             </div>
             <div class="card-body">
                 <div id="accordion">
                     @foreach($allRoles as $role)
                         <div class="card">
                             <div class="card-header d-flex justify-content-between">
-                                <h4 class="card-title flex-grow-1">
-                                    <a data-parent="#accordion" href="" aria-expanded="true">
+                                <h4 class="card-title text-primary flex-grow-1">
+                                    {{-- <a data-parent="#accordion" wire:click.prevent='' href="" aria-expanded="true"> --}}
                                         {{$role->nom}}
-                                    </a>
+                                    {{-- </a> --}}
                                 </h4>
                                 <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                    <input type="checkbox" wire:model = "rolesUpdated.{{$role->nom}}" class="custom-control-input" id="{{$role->nom}}"  wire:change='updateRoles({{$user_id}}, "{{$role->nom}}")' >
+                                    <input type="checkbox" wire:model = "rolesUpdated.{{$role->nom}}" class="custom-control-input" id="{{$role->nom}}">
                                     <label for="{{$role->nom}}" class="custom-control-label">@if($rolesUpdated[$role->nom])activé@else Desactivé @endif</label>
                                 </div>
                             </div>
                         </div>
                     @endforeach
+                    <div class="card">
+                        {{-- <div class="card-body"> --}}
+                            <table class="table">
+                                <thead>
+                                    <th><h4>Permissions</h4></th>
+                                    <th></th>
+                                </thead>
+                                <tbody>
+                                    @foreach ($allPermissions as $permission)
+                                        <tr>
+                                            <td>{{$permission->nom}}</td>
+                                            <td>
+                                                <div class="custom-control float-right custom-switch custom-switch-off-danger custom-switch-on-success">
+                                                    <input type="checkbox" wire:model='permissionsUpdated.{{$permission->nom}}' class="custom-control-input" id="{{$permission->nom}}">
+                                                    <label for="{{$permission->nom}}" class="custom-control-label">@if($permissionsUpdated[$permission->nom])Activé @else Desactivé @endif</label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach    
+                                </tbody>
+                            </table>
+                        {{-- </div> --}}
+                        
+                    </div>   
 
-                    <table class="table table-bordered">
-                        <thead>
-                            <th>Permissions</th>
-                            <th></th>
-                        </thead>
-                        <tbody>
-                            @foreach ($allPermissions as $permission)
-                                <tr>
-                                    <td>{{$permission->nom}}</td>
-                                    <td>
-                                        <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                            <input type="checkbox" wire:model='permissionsUpdated.{{$permission->nom}}' class="custom-control-input" id="{{$permission->nom}}" wire:change='updatePermissions({{$user_id}}, {{$permission->id}})'>
-                                            <label for="{{$permission->nom}}" class="custom-control-label">@if($permissionsUpdated[$permission->nom])Activé @else Desactivé @endif</label>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            
-                        </tbody>
-                    </table>
                 </div>
                 
             </div>

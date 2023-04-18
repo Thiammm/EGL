@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Livewire\Utilisateurs;
+use App\Http\Livewire\TypeArticleCompenent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,14 @@ Route::prefix('admin')->name('admin.')->middleware("auth", "auth.admin")->group(
         Route::get('/', [HomeController::class, 'index']);
         Route::get('/utilisateurs', Utilisateurs::class)->name('users.index');
         Route::get('/roles', [admin\UsersController::class, "index"])->name('roles.index');
+    });
+});
+
+Route::prefix('admin')->name('admin.')->middleware("auth", "auth.admin")->group(function(){
+    Route::prefix('gestionarticles')->name('gestionarticles.')->group(function(){
+        Route::get('/', [HomeController::class, 'index']);
+        Route::get('/typearticles', TypeArticleCompenent::class)->name('typearticles.index');
+        // Route::get('/roles', [admin\UsersController::class, "index"])->name('roles.index');
     });
 });
 

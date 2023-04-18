@@ -61,8 +61,8 @@
             </ul>
         </li>
 
-        <li class="nav-item">
-            <a href="#" class="nav-link">
+        <li class="nav-item {{setMenuClass("admin.gestionarticles.", "menu-open")}}">
+            <a href="{{route('admin.gestionarticles.typearticles.index')}}" class="nav-link {{setMenuActive("admin.gestionarticles.typearticles.index")}}">
                 <i class="nav-icon fas fa-cogs"></i>
                 <p>
                     Gestion articles
@@ -71,7 +71,7 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('admin.gestionarticles.typearticles.index')}}" class="nav-link {{setMenuActive("admin.gestionarticles.typearticles.index")}}">
                         <i class="nav-icon far fa-circle"></i>
                         <p>Type d'article</p>
                     </a>

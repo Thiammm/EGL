@@ -6,8 +6,10 @@ use App\Models\Role;
 use App\Models\User;
 use Livewire\Component;
 use App\Models\Permission;
-use Illuminate\Validation\Rule;
 use Livewire\WithPagination;
+use Illuminate\pagination\paginator;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 
 class Utilisateurs extends Component
 {
@@ -20,9 +22,11 @@ class Utilisateurs extends Component
     public $rolesUpdated = [];
     public $permissionsUpdated = [];
     public $newUser = [];
+    public $editUser = [];
     public $user_id;
     public $allRoles = [];
     public $allPermissions = [];
+    public $search = "";
 
     // protected $rules = [
     //     "newUser.prenom" => "required",
@@ -52,12 +56,16 @@ class Utilisateurs extends Component
     //     "newUser.noPieceIdentite" => "Numero Piece d'Identite",
     // ];
 
+    public function updatingSearch(){
+        $this->resetPage();
+    }
 
 
     public function render()
     {
+        $searchCritary = "%".$this->search."%";
         return view('livewire.utilisateurs.index',[
-            'users' => User::latest('created_at')->paginate(5)
+            'users' => User::latest('created_at')->where("prenom", "like", $searchCritary)->paginate(5)
         ])
         ->extends('layouts.master')
         ->section('content');
@@ -65,16 +73,31 @@ class Utilisateurs extends Component
     }
 
     public function rules(){
+        if($this->isBtnClick === "edit")
+        {
+            return [
+                "editUser.prenom" => "required",
+                "editUser.nom" => "required",
+                "editUser.sexe" => "required",
+                "editUser.email" => ["required", "email", Rule::unique("users", "email")->ignore($this->user_id)],
+                "editUser.telephone1" => "required|numeric",
+                "editUser.telephone2" => "numeric",
+                "editUser.pieceIdentite" => "required",
+                "editUser.noPieceIdentite" => "required",
+            ];
+        }
+
         return [
             "newUser.prenom" => "required",
             "newUser.nom" => "required",
             "newUser.sexe" => "required",
-            "newUser.email" => ["required", "email", Rule::unique("users", "email")->ignore($this->user_id)],
+            "newUser.email" => ["required", "email", Rule::unique("users", "email")],
             "newUser.telephone1" => "required|numeric",
             "newUser.telephone2" => "numeric",
             "newUser.pieceIdentite" => "required",
             "newUser.noPieceIdentite" => "required",
-        ];
+        ]; 
+        
     }
 
     public function goToAddUser(){
@@ -122,7 +145,6 @@ class Utilisateurs extends Component
     }
 
     public function deleteUser($id){
-    
         $this->isBtnClick = "delete";
         $user = User::find($id);
         $user->delete();
@@ -133,7 +155,7 @@ class Utilisateurs extends Component
         $this->isBtnClick = "edit";
         $this->user_id = $id;
         $user = User::find($id);
-        $this->newUser = $user;
+        $this->editUser = $user;
         $this->allRoles = Role::all();
         $this->allPermissions = Permission::all();
         $this->userRoles = $user->roles;
@@ -161,20 +183,46 @@ class Utilisateurs extends Component
     public function updateUser($id){
         $user = User::find($id);
         $donneeValides = $this->validate();
-        $user->update($donneeValides["newUser"]);
+        $user->update($donneeValides["editUser"]);
         $this->showSuccessMessage('user updated');
+        $this->editUser = [];
     }
 
-    public function updateRoles($id, $nom){
+    public function updateRolesPermissions($id){
         $user = User::find($id);
-        $role = Role::all()->where('nom', $nom)->first();
-            if($this->rolesUpdated[$nom] === true){
+        $roles = Role::all();
+        $permissions = Permission::all();
+        DB::table('role_user')->where("user_id", $id)->delete();
+        DB::table('permission_user')->where("user_id", $id)->delete();
+        foreach($roles as $role){
+            if($this->rolesUpdated[$role->nom]){
                 $user->roles()->attach($role->id);
             }
             else{
                 $user->roles()->detach($role->id);
             }
+        };
 
+        foreach($permissions as $permission){
+            if($this->permissionsUpdated[$permission->nom]){
+                $user->permissions()->attach($permission->id);
+            }
+            else{
+                $user->permissions()->detach($permission->id);
+            }
+        }
+        $this->showSuccessMessage('les mises à jour ont été enrégistrer avec succès');
+    }
+
+    public function updateRoles($id, $nom){
+        $user = User::find($id);
+        $role = Role::all()->where('nom', $nom)->first();
+            // if($this->rolesUpdated[$nom] === true){
+            //     $user->roles()->attach($role->id);
+            // }
+            // else{
+            //     $user->roles()->detach($role->id);
+            // }
     }
 
     public function updatePermissions($user_id, $permission_id){
@@ -186,7 +234,6 @@ class Utilisateurs extends Component
         else{
             $user->permissions()->detach($permission->id);
         }
-
     }
 
     public function confirmReinitialisation($id){
@@ -210,5 +257,13 @@ class Utilisateurs extends Component
         $user->save();
         $this->showSuccessMessage('password reseted for '.$user->prenom." ".$user->nom);
     }
+
+
+    // public function setPage($url){
+    //     $this->currentPage = explode('page=', $url[1]);
+    //     paginator::currentPageResolver(function(){
+    //         return $this->currentPage;
+    //     });
+    // }
 
 }
