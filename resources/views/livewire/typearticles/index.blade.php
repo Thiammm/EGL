@@ -4,3 +4,6 @@
 @if($isBtnClick === "creer")
     @include('livewire.typearticles.liste')
 @endif
+@if($isBtnClick === "edit")
+    @include('livewire.typearticles.liste')
+@endif
