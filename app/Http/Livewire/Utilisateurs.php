@@ -22,6 +22,7 @@ class Utilisateurs extends Component
     public $rolesUpdated = [];
     public $permissionsUpdated = [];
     public $newUser = [];
+    public $editUser = [];
     public $user_id;
     public $allRoles = [];
     public $allPermissions = [];
@@ -72,16 +73,31 @@ class Utilisateurs extends Component
     }
 
     public function rules(){
+        if($this->isBtnClick === "edit")
+        {
+            return [
+                "editUser.prenom" => "required",
+                "editUser.nom" => "required",
+                "editUser.sexe" => "required",
+                "editUser.email" => ["required", "email", Rule::unique("users", "email")->ignore($this->user_id)],
+                "editUser.telephone1" => "required|numeric",
+                "editUser.telephone2" => "numeric",
+                "editUser.pieceIdentite" => "required",
+                "editUser.noPieceIdentite" => "required",
+            ];
+        }
+
         return [
             "newUser.prenom" => "required",
             "newUser.nom" => "required",
             "newUser.sexe" => "required",
-            "newUser.email" => ["required", "email", Rule::unique("users", "email")->ignore($this->user_id)],
+            "newUser.email" => ["required", "email", Rule::unique("users", "email")],
             "newUser.telephone1" => "required|numeric",
             "newUser.telephone2" => "numeric",
             "newUser.pieceIdentite" => "required",
             "newUser.noPieceIdentite" => "required",
-        ];
+        ]; 
+        
     }
 
     public function goToAddUser(){
@@ -139,7 +155,7 @@ class Utilisateurs extends Component
         $this->isBtnClick = "edit";
         $this->user_id = $id;
         $user = User::find($id);
-        $this->newUser = $user;
+        $this->editUser = $user;
         $this->allRoles = Role::all();
         $this->allPermissions = Permission::all();
         $this->userRoles = $user->roles;
@@ -167,8 +183,9 @@ class Utilisateurs extends Component
     public function updateUser($id){
         $user = User::find($id);
         $donneeValides = $this->validate();
-        $user->update($donneeValides["newUser"]);
+        $user->update($donneeValides["editUser"]);
         $this->showSuccessMessage('user updated');
+        $this->editUser = [];
     }
 
     public function updateRolesPermissions($id){
