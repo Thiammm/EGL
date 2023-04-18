@@ -13,17 +13,21 @@ class UsersSeeder extends Seeder
      */
     public function run(): void
     {
-        $user1 = User::find(1);
-        $user1->roles()->attach(1);
+        $users = User::all();
+        foreach($users as $user){
+            $user->roles()->attach(3);
+        }
+        // $user1 = User::find(1);
+        // $user1->roles()->attach(1);
 
-        $user2 = User::find(2);
-        $user2->roles()->attach(2);
+        // $user2 = User::find(2);
+        // $user2->roles()->attach(2);
 
-        $user3 = User::find(3);
-        $user3->roles()->attach(3);
+        // $user3 = User::find(3);
+        // $user3->roles()->attach(3);
 
-        $user4 = User::find(4);
-        $user4->roles()->attach(4);
+        // $user4 = User::find(4);
+        // $user4->roles()->attach(4);
 
     }
 }

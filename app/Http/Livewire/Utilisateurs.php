@@ -7,6 +7,7 @@ use App\Models\User;
 use Livewire\Component;
 use App\Models\Permission;
 use Livewire\WithPagination;
+use Illuminate\pagination\paginator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 
@@ -54,6 +55,9 @@ class Utilisateurs extends Component
     //     "newUser.noPieceIdentite" => "Numero Piece d'Identite",
     // ];
 
+    public function updatingSearch(){
+        $this->resetPage();
+    }
 
 
     public function render()
@@ -238,11 +242,11 @@ class Utilisateurs extends Component
     }
 
 
-    public function setPage($url){
-        $this->currentPage = explode('pag=', $url)[1];
-        paginator::currentPageResolver(function(){
-            return $this->currentPage;
-        });
-    }
+    // public function setPage($url){
+    //     $this->currentPage = explode('page=', $url[1]);
+    //     paginator::currentPageResolver(function(){
+    //         return $this->currentPage;
+    //     });
+    // }
 
 }
