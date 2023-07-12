@@ -8,8 +8,10 @@ use App\Models\User;
 use App\Models\Article;
 use App\Models\Permission;
 use App\Models\TypeArticle;
-use Database\Factories\TypeArticleFactory;
 use Illuminate\Database\Seeder;
+use App\Models\ProprieteArticle;
+use Database\Factories\TypeArticleFactory;
+use Database\Factories\ProprieteArticleFactory;
 
 class DatabaseSeeder extends Seeder
 {
@@ -25,8 +27,10 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersSeeder::class);
         $this->call(TypeArticlesSeeder::class);
         $this->call(StatutLocationSeeder::class);
+        $this->call(DureeLocationSeeder::class);
         Article::factory(100)->create();
-        TypeArticle::factory(100)->create();
+        // TypeArticle::factory(100)->create();
+        // ProprieteArticle::factory(100)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

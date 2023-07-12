@@ -20,7 +20,7 @@ class ArticleFactory extends Factory
             'nom' => $this->faker->name(),
             'noSerie' => $this->faker->creditCardNumber(),
             'estDisponible' => rand(0, 1),
-            'imgUrl' => $this->faker->imageUrl(),
+            'imgUrl' => "",
             'type_article_id' => rand(1, 4),
         ];
     }

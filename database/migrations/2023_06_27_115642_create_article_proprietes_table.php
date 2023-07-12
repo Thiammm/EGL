@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('article_propriete', function (Blueprint $table) {
+        Schema::create('article_proprietes', function (Blueprint $table) {
             $table->id();
             $table->foreignId("article_id")->constrained()->cascadeOnDelete();
             $table->foreignId("propriete_article_id")->constrained()->cascadeOnDelete();
+            $table->string('valeur');
+            $table->timestamps();
         });
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('article_propriete');
+        Schema::dropIfExists('article_proprietes');
     }
 };

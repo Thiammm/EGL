@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TypeArticle extends Model
 {
@@ -17,7 +18,7 @@ class TypeArticle extends Model
         return $this->hasMany(Article::class);
     }
 
-    public function ProprieteArticle(){
+    public function proprieteArticles(){
         return $this->hasMany(ProprieteArticle::class);
     }
 }
