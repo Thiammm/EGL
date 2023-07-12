@@ -45,7 +45,7 @@
                 <td class="text-center">
                     <button class="btn btn-link" wire:click.prevent='editUser({{$user->id}})'><i class="far fa-edit"></i></button>
                     <button class="btn btn-link" wire:click.prevent='confirmDelete({{$user->id}})'><i class="far fa-trash-alt"></i></button>
-                </td>
+                </td> 
             </tr>
         @endforeach
         </tbody>

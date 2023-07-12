@@ -62,7 +62,7 @@
         </li>
 
         <li class="nav-item {{setMenuClass("admin.gestionarticles.", "menu-open")}}">
-            <a href="{{route('admin.gestionarticles.typearticles.index')}}" class="nav-link {{setMenuActive("admin.gestionarticles.typearticles.index")}}">
+            <a href="{{route('admin.gestionarticles.typearticles.index')}}" class="nav-link {{setMenuClass("admin.gestionarticles.", "active")}}">
                 <i class="nav-icon fas fa-cogs"></i>
                 <p>
                     Gestion articles
@@ -77,17 +77,17 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('admin.gestionarticles.articles.index')}}" class="nav-link {{setMenuActive("admin.gestionarticles.articles.index")}}">
                         <i class="nav-icon fas fa-list-ul"></i>
                         <p>Articles</p>
                     </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-sliders-h"></i>
                         <p>Tarifications</p>
                     </a>
-                </li>
+                </li> --}}
             </ul>
         </li>
         @endcan

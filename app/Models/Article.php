@@ -12,6 +12,7 @@ class Article extends Model
     protected $fillable = [
         'nom',
         'noSerie',
+        'type_article_id',
         'EstDisponible',
         'imgUrl',
     ];
@@ -28,8 +29,8 @@ class Article extends Model
         return $this->belongsToMany(Location::class);
     }
 
-    public function typeArticles(){
-        return $this->belongsToMany(PropieteArticle::class);
+    public function proprieteArticles(){
+        return $this->belongsToMany(PropieteArticle::class, 'article_proprietes', 'article_id', 'propriete_article_id');
     }
 
 }

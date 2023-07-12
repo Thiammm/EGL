@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\Article;
+use App\Models\TypeArticle;
 use Illuminate\Support\Str;
+use App\Models\ProprieteArticle;
 
     function setMenuClass($root, $class){
         $rootActuel = request()->route()->getName();
@@ -36,6 +39,23 @@ use Illuminate\Support\Str;
 
     function contient($conteneur, $contenu){
         return Str::contains($conteneur, $contenu);
+    }
+
+    function existeArticle($type){
+        $existe = 0;
+        $articles = Article::all();
+        foreach($articles as $article){
+            if($article->type_article_id === $type->id){
+                $existe++;
+            }
+        }
+        return($existe);
+    }
+
+    function typeArticleNom($id){
+        $type = TypeArticle::find($id);
+        // dd($type->nom);
+        return $type->nom;
     }
 
 

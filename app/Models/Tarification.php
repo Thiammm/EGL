@@ -11,6 +11,8 @@ class Tarification extends Model
 
     protected $fillable = [
         'prix',
+        'duree_location_id',
+        'article_id',
     ];
 
     public function dureeLocation(){
