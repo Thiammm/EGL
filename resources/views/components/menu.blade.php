@@ -52,12 +52,12 @@
                         <p>utilisateurs</p>
                     </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{route('admin.habilitations.roles.index')}}" class="nav-link {{setMenuActive("admin.habilitations.roles.index")}}">
                         <i class="nav-icon fas fa-fingerprint"></i>
                         <p>Roles et permissions</p>
                     </a>
-                </li>
+                </li> --}}
             </ul>
         </li>
 
@@ -77,7 +77,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('admin.gestionarticles.articles.index')}}" class="nav-link {{setMenuActive("admin.gestionarticles.articles.index")}}">
+                    <a href="{{route('admin.gestionarticles.articles.index')}}" class="nav-link {{setMenuClass("admin.gestionarticles.articles", "active")}}">
                         <i class="nav-icon fas fa-list-ul"></i>
                         <p>Articles</p>
                     </a>

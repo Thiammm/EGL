@@ -40,25 +40,24 @@ Route::prefix('admin')->name('admin.')->middleware("auth", "auth.admin")->group(
     Route::prefix('gestionarticles')->name('gestionarticles.')->group(function(){
         Route::get('/', [HomeController::class, 'index']);
         Route::get('/typearticles', TypeArticleCompenent::class)->name('typearticles.index');
-        // Route::get('/roles', [admin\UsersController::class, "index"])->name('roles.index');
-    });
-});
-
-Route::prefix('admin')->name('admin.')->middleware("auth", "auth.admin")->group(function(){
-    Route::prefix('gestionarticles')->name('gestionarticles.')->group(function(){
-        Route::get('/', [HomeController::class, 'index']);
         Route::get('/articles',ArticleCompenent::class)->name('articles.index');
-        // Route::get('/roles', [admin\UsersController::class, "index"])->name('roles.index');
+        Route::get('/articles/{articleId}/tarifications',TarificationCompenent::class)->name('articles.tarifications.index');
     });
 });
 
-Route::prefix('admin')->name('admin.')->middleware("auth", "auth.admin")->group(function(){
-    Route::prefix('gestionarticles')->name('gestionarticles.')->group(function(){
-        Route::get('/', [HomeController::class, 'index']);
-        Route::get('/tarifications',TarificationCompenent::class)->name('tarifications.index');
-        // Route::get('/roles', [admin\UsersController::class, "index"])->name('roles.index');
-    });
-});
+// Route::prefix('admin')->name('admin.')->middleware("auth", "auth.admin")->group(function(){
+//     Route::prefix('gestionarticles')->name('gestionarticles.')->group(function(){
+//         Route::get('/', [HomeController::class, 'index']);
+//         Route::get('/articles',ArticleCompenent::class)->name('articles.index');
+//     });
+// });
+
+// Route::prefix('admin')->name('admin.')->middleware("auth", "auth.admin")->group(function(){
+//     Route::prefix('gestionarticles')->name('gestionarticles.')->group(function(){
+//         Route::get('/', [HomeController::class, 'index']);
+//         Route::get('/tarifications',TarificationCompenent::class)->name('tarifications.index');
+//     });
+// });
 
 
 

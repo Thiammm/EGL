@@ -70,12 +70,13 @@
                             <span class="badge bg-danger">Indisponible</span>
                         @endif
                     </td>
+                    {{-- wire:click.prevent='ouvrirTarification({{$article->id}})' --}}
                     {{-- {{route('admin.gestionarticles.tarifications.index')}} --}}
                     <td class="text-center">{{$article->created_at->diffForHumans()}}</td>
                     <td class="text-center">
-                        <a href="" wire:click.prevent='ouvrirTarification({{$article->id}})' class="btn btn-link"><i class="fas fa-money-check"></i></a>
+                        <a href="{{route('admin.gestionarticles.articles.tarifications.index', ["articleId" => $article->id])}}" class="btn btn-link"><i class="fas fa-money-check"></i></a>
                         <button class="btn btn-link" wire:click='editArticle({{$article->id}})' data-bs-toggle="modal" data-bs-target="#modalEdit"><i class="far fa-edit"></i></button>
-                        <button class="btn btn-link" wire:click='confirmDelete({{$article->id}})' ><i class="fas fa-trash-alt"></i></button>
+                        <button class="btn btn-link" wire:click='confirmDelete({{$article->id}})'><i class="fas fa-trash-alt"></i></button>
                     </td>
                 </tr>
             @empty

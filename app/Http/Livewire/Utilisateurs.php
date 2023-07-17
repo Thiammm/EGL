@@ -259,11 +259,4 @@ class Utilisateurs extends Component
     }
 
 
-    // public function setPage($url){
-    //     $this->currentPage = explode('page=', $url[1]);
-    //     paginator::currentPageResolver(function(){
-    //         return $this->currentPage;
-    //     });
-    // }
-
 }
