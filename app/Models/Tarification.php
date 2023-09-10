@@ -23,4 +23,8 @@ class Tarification extends Model
         return $this->belongsTo(Article::class);
     }
 
+    public function getPrixForHumansAttribute(){
+        return number_format($this->prix, 0, ",", " ")." ".env("CURRENCY", "XAF");
+    }
+
 }

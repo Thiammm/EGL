@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Permission;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class PermissionsSeeder extends Seeder
@@ -13,11 +13,12 @@ class PermissionsSeeder extends Seeder
      */
     public function run(): void
     {
-        Permission::create(['nom' => 'gestion clientelle']);
-        Permission::create(['nom' => 'gestion location']);
-        Permission::create(['nom' => 'gestion recettes']);
-        Permission::create(['nom' => 'reporting']);
-        Permission::create(['nom' => 'gestion inventaire']);
-        Permission::create(['nom' => 'recouvrement']);
+        Permission::create(['name' => 'gestion clientelle']);
+        Permission::create(['name' => 'gestion location']);
+        Permission::create(['name' => 'gestion recettes']);
+        Permission::create(['name' => 'reporting']);
+        Permission::create(['name' => 'gestion inventaire']);
+        Permission::create(['name' => 'recouvrement']);
+        Permission::create(['name' => 'affiche dashboard']);
     }
 }

@@ -12,7 +12,7 @@
             <div class="d-flex justify-content-center align-items-center" style="height:100%">
                 <div class="card card-outline card-primary bg-dark" style="width:80%">
                     <div class="card-header text-center">
-                        <a href="../../index2.html" class="h1"><b>EGL </b>CORPORATE v1</a>
+                        <h1><b>EGL </b>CORPORATE v1</h1>
                     </div>
 
                     @yield('form')

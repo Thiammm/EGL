@@ -1,9 +1,9 @@
 <div class="card m-4 mt-5">
     <div class="card-header bg-gradient-primary d-flex align-items-center">
-        <h3 class="card-title flex-grow-1"><i class="fas fa-users fa-2x"></i> Liste des Utilisateurs</h3>
+        <h3 class="card-title flex-grow-1"><i class="fas fa-users fa-2x"></i> Liste des Clients</h3>
         <div class="card-tools">
             <div class="input-group input-group-sm d-flex align-items-center">
-                <a href="" class="text-white" wire:click.prevent="goToAddUser()"><i class="fas fa-user-plus"></i> Nouvel utilisateur</a>
+                <a href="" class="text-white" wire:click.prevent="createClient()"><i class="fas fa-user-plus"></i> Nouvel Client</a>
                 <input type="text" wire:model.debounce='search' class="form-control ml-3" placeholder="Search">
                 <div class="input-group-append">
                     <button type="submit" class="btn btn-default">
@@ -19,32 +19,36 @@
         <thead>
             <tr>
                 <th style="width: 5%;"></th>
-                <th style="width: 25%;">Users</th>
-                <th style="width: 20%;">Roles</th>
-                <th style="width: 20%;" class="text-center">Ajoutés</th>
-                <th style="width: 30%;" class="text-center">Actions</th>
+                <th style="width: 25%;">Clients</th>
+                <th style="width: 20%;">Adresse</th>
+                <th style="width: 15%;">Telephone</th>
+                <th style="width: 15%;" class="text-center">Ajoutés</th>
+                <th style="width: 20%;" class="text-center">Actions</th>
             </tr>
         </thead>
         <tbody>
-        @foreach($users as $user)
+        @foreach($clients as $client)
             <tr>
                 <td>
-                    @if($user->sexe == "H")
+                    @if($client->sexe == "H")
                         <img src="{{asset('images/utilisateur.png')}}" style="width:100%; height: 100%"/>
                     @else
                         <img src="{{asset('images/femelle.png')}}" style="width:100%; height: 100%"/>
                     @endif
                 </td>
-                <td>{{$user->prenom}} {{$user->nom}}</td>
+                <td>{{$client->prenom}} {{$client->nom}}</td>
                 
                 <td>
-                    {{$user->roles->implode('name', ' | ')}}
+                    {{$client->adresse}}
                 </td>
+
+                <td>{{$client->telephone1}}</td>
                 
-                <td class="text-center">{{$user->created_at->diffForHumans()}}</td>
+                <td class="text-center">{{$client->created_at->diffForHumans()}}</td>
                 <td class="text-center">
-                    <button class="btn btn-link" wire:click.prevent='editUser({{$user->id}})'><i class="far fa-edit"></i></button>
-                    <button class="btn btn-link" wire:click.prevent='confirmDelete({{$user->id}})'><i class="far fa-trash-alt"></i></button>
+                    <button class="btn btn-link" wire:click.prevent='afficheClient({{$client->id}})'><i class="fas fa-list"></i></button>
+                    <button class="btn btn-link" wire:click.prevent='editclient({{$client->id}})'><i class="far fa-edit"></i></button>
+                    <button class="btn btn-link" wire:click.prevent='confirmDelete({{$client->id}})'><i class="far fa-trash-alt"></i></button>
                 </td> 
             </tr>
         @endforeach
@@ -54,7 +58,7 @@
 
     <div class="card-footer float-right">
         <div class="float-right">
-            {{$users->links()}}
+            {{$clients->links()}}
         </div>
     </div> 
 
@@ -66,18 +70,11 @@
         window.addEventListener("showConfirmMessage", function(e){
             Swal.fire(e.detail).then((result)=>{
                 if(result.isConfirmed){
-                @this.deleteUser(e.detail.id)
+                @this.deleteclient(e.detail.id)
                 }
-            })
+            });
         });
 
-        window.addEventListener("showConfirmMessageReset", function(e){
-            Swal.fire(e.detail).then((result)=>{
-                if(result.isConfirmed){
-                @this.reinitialiser(e.detail.id)
-                }
-            })
-        });
         
     </script>
 

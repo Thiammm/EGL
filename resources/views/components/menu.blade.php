@@ -10,7 +10,7 @@
             </a>
         </li>
     
-        @can('isManager')
+        @can('affiche dashboard')
         <li class="nav-item">
             <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -36,7 +36,7 @@
         </li>
         @endcan
 
-        @can('isAdmin')
+        @can('gestion inventaire')
         <li class="nav-item {{setMenuClass("admin.habilitations.", "menu-open")}}">
             <a href="{{route("admin.habilitations.")}}" class="nav-link {{setMenuClass("admin.habilitations.","active")}}">
                 <i class="nav-icon fas fa-user-shield"></i>
@@ -60,7 +60,9 @@
                 </li> --}}
             </ul>
         </li>
+        @endcan
 
+        @can('gestion inventaire')
         <li class="nav-item {{setMenuClass("admin.gestionarticles.", "menu-open")}}">
             <a href="{{route('admin.gestionarticles.typearticles.index')}}" class="nav-link {{setMenuClass("admin.gestionarticles.", "active")}}">
                 <i class="nav-icon fas fa-cogs"></i>
@@ -91,11 +93,11 @@
             </ul>
         </li>
         @endcan
-        @can('isEmploye')
+        @can('gestion clientelle')
             
         <li class="nav-header">LOCATION</li>
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{route('admin.gestionclients.clients.index')}}" class="nav-link {{setMenuClass("admin.gestionclients.clients", "active")}}">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
                     Gestion des clients

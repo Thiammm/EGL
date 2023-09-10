@@ -1,11 +1,11 @@
 <div class="row">
-    <div class="col-md-6 mt-4">
+    <div class="col-md-7 mt-4">
         <div class="card" style="height:500px">
             <div class="card-header bg-gradient-primary d-flex">
                 <div class="flex-grow-1">
                     <p class="card-title text-center"><i class="fas fa-money-check fa-2x "></i> Tarification - {{$article->nom}}</p>
                 </div>
-                <div>
+                <div> 
                     <a href="{{route('admin.gestionarticles.articles.index')}}" class="mr-2 btn btn-light">retourner à la liste des articles</a>
                     <button class="btn btn-light" wire:click='ajouterTarification' ><i class="fas fa-plus"></i> Nouveau tarif</button>
                 </div>
@@ -36,7 +36,10 @@
                                 <div class="invalid-feedback">{{$message}}</div>
                             @enderror
     
-                            <input type="number" wire:model='newTarif.prix' class="form-control mt-3" placeholder="prix du tarif">
+                            <input type="number" wire:model='newTarif.prix' class="form-control mt-3 @error("newTarif.prix") is-invalid @enderror" placeholder="prix du tarif">
+                            @error('newTarif.prix')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                             <button class="btn btn-link text-success mt-3" wire:click.prevent='addTarification({{$articleId}})'><i class="fa fa-check"></i> Valider</button>
                             <button class="btn btn-link text-warning mt-3" wire:click.prevent='annulerAjout' ><i class="far fa-trash-alt"></i> Annuler</button>
                         </div>
@@ -64,9 +67,9 @@
                         @endif
                         @forelse($lesTarifs as $tarif)
                             <tr>
-                                <td>{{$tarif->id}}</td>
+                                <td>{{++$loop->index}}</td>
                                 <td>{{$tarif->dureeLocation->libelle}}</td>
-                                <td class="text-center">{{$tarif->prix}},00 XAF</td>
+                                <td class="text-center">{{$tarif->prixForHumans}}</td>
                                 <td class="text-center">
                                     <button class="btn btn-link" wire:click='editerTarif({{$tarif->id}})'><i class="far fa-edit"></i></button>
                                 </td>
@@ -74,7 +77,7 @@
                         @empty
                             <tr>
                                 <td colspan="4">
-                                    <div class="alert alert-success m-2">
+                                    <div class="alert alert-info m-2">
                                         <h5><i class="icon fas fa-ban"></i> Information !</h5>
                                         Cet article n'a pas encore de tarif defini
                                     </div>

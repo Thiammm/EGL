@@ -2,14 +2,14 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Role;
 use App\Models\User;
 use Livewire\Component;
-use App\Models\Permission;
 use Livewire\WithPagination;
-use Illuminate\pagination\paginator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
+use Illuminate\pagination\paginator;
+use Spatie\Permission\Models\Permission;
 
 class Utilisateurs extends Component
 {
@@ -161,21 +161,21 @@ class Utilisateurs extends Component
         $this->userRoles = $user->roles;
         $this->userPermissions = $user->permissions;
         foreach($this->allRoles as $role){
-            $nom = $role->nom;
+            $nom = $role->name;
             $this->rolesUpdated[$nom] = null;
         }
         foreach($this->userRoles as $userRole){
-            $nom = $userRole->nom;
+            $nom = $userRole->name;
             $this->rolesUpdated[$nom] = true;
         }
 
         foreach($this->allPermissions as $permission){
-            $nom = $permission->nom;
+            $nom = $permission->name;
            $this->permissionsUpdated[$nom] = null; 
         }
 
         foreach($this->userPermissions as $userPermission){
-            $nom = $userPermission->nom;
+            $nom = $userPermission->name;
             $this->permissionsUpdated[$nom] = true;
         }
     }
@@ -195,20 +195,24 @@ class Utilisateurs extends Component
         DB::table('role_user')->where("user_id", $id)->delete();
         DB::table('permission_user')->where("user_id", $id)->delete();
         foreach($roles as $role){
-            if($this->rolesUpdated[$role->nom]){
-                $user->roles()->attach($role->id);
+            if($this->rolesUpdated[$role->name]){
+                // $user->roles()->attach($role->id);
+                $user->assignRole($role->name);
             }
             else{
-                $user->roles()->detach($role->id);
+                $user->removeRole($role->name);
+                // $user->roles()->detach($role->id);
             }
         };
 
         foreach($permissions as $permission){
-            if($this->permissionsUpdated[$permission->nom]){
-                $user->permissions()->attach($permission->id);
+            if($this->permissionsUpdated[$permission->name]){
+                // $user->permissions()->attach($permission->id);
+                $user->givePermissionTo($permission->name);
             }
             else{
-                $user->permissions()->detach($permission->id);
+                $user->revokePermissionTo($permission->name);
+                // $user->permissions()->detach($permission->id);
             }
         }
         $this->showSuccessMessage('les mises à jour ont été enrégistrer avec succès');
@@ -216,7 +220,7 @@ class Utilisateurs extends Component
 
     public function updateRoles($id, $nom){
         $user = User::find($id);
-        $role = Role::all()->where('nom', $nom)->first();
+        $role = Role::all()->where('name', $nom)->first();
             // if($this->rolesUpdated[$nom] === true){
             //     $user->roles()->attach($role->id);
             // }
@@ -228,11 +232,13 @@ class Utilisateurs extends Component
     public function updatePermissions($user_id, $permission_id){
         $user = User::find($user_id);
         $permission = Permission::find($permission_id);
-        if($this->permissionsUpdated[$permission->nom] === true){
-            $user->permissions()->attach($permission->id);
+        if($this->permissionsUpdated[$permission->name] === true){
+            $user->givePermissionTo($permission->name);
+            // $user->permissions()->attach($permission->id);
         }
         else{
-            $user->permissions()->detach($permission->id);
+            $user->revokePermissionTo($permission->name);
+            // $user->permissions()->detach($permission->id);
         }
     }
 

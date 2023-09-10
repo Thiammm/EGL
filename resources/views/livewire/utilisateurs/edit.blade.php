@@ -139,12 +139,12 @@
                             <div class="card-header d-flex justify-content-between">
                                 <h4 class="card-title text-primary flex-grow-1">
                                     {{-- <a data-parent="#accordion" wire:click.prevent='' href="" aria-expanded="true"> --}}
-                                        {{$role->nom}}
+                                        {{$role->name}}
                                     {{-- </a> --}}
                                 </h4>
                                 <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                    <input type="checkbox" wire:model = "rolesUpdated.{{$role->nom}}" class="custom-control-input" id="{{$role->nom}}">
-                                    <label for="{{$role->nom}}" class="custom-control-label">@if($rolesUpdated[$role->nom])activé@else Desactivé @endif</label>
+                                    <input type="checkbox" wire:model = "rolesUpdated.{{$role->name}}" class="custom-control-input" id="{{$role->name}}">
+                                    <label for="{{$role->name}}" class="custom-control-label">@if($rolesUpdated[$role->name])activé@else Desactivé @endif</label>
                                 </div>
                             </div>
                         </div>
@@ -159,11 +159,11 @@
                                 <tbody>
                                     @foreach ($allPermissions as $permission)
                                         <tr>
-                                            <td>{{$permission->nom}}</td>
+                                            <td>{{$permission->name}}</td>
                                             <td>
                                                 <div class="custom-control float-right custom-switch custom-switch-off-danger custom-switch-on-success">
-                                                    <input type="checkbox" wire:model='permissionsUpdated.{{$permission->nom}}' class="custom-control-input" id="{{$permission->nom}}">
-                                                    <label for="{{$permission->nom}}" class="custom-control-label">@if($permissionsUpdated[$permission->nom])Activé @else Desactivé @endif</label>
+                                                    <input type="checkbox" wire:model='permissionsUpdated.{{$permission->name}}' class="custom-control-input" id="{{$permission->name}}">
+                                                    <label for="{{$permission->name}}" class="custom-control-label">@if($permissionsUpdated[$permission->name])Activé @else Desactivé @endif</label>
                                                 </div>
                                             </td>
                                         </tr>
