@@ -28,7 +28,7 @@ use App\Models\ProprieteArticle;
     function userAllRoles(){
         $nameRoles = ""; $i=1;
         foreach(auth()->user()->roles as $role){
-            $nameRoles .= $role->nom;
+            $nameRoles .= $role->name;
             if($i < sizeof(auth()->user()->roles)){
                 $nameRoles .= ", ";
             }

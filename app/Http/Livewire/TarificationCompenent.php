@@ -54,6 +54,9 @@ class TarificationCompenent extends Component
 
     public function annulerAjout(){
         $this->fonction = "liste";
+        $this->resetErrorBag();
+        $this->newTarif = [];
+        $this->editTarif = [];
     }
 
     public function addTarification($id){

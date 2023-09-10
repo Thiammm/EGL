@@ -15,7 +15,7 @@ class UsersSeeder extends Seeder
     {
         $users = User::all();
         foreach($users as $user){
-            $user->roles()->attach(3);
+            $user->assignRole("employe");
         }
         // $user1 = User::find(1);
         // $user1->roles()->attach(1);

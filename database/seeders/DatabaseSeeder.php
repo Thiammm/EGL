@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Client;
 use App\Models\Article;
 use App\Models\Permission;
 use App\Models\TypeArticle;
@@ -22,13 +23,14 @@ class DatabaseSeeder extends Seeder
     {
 
         User::factory(100)->create();
-        $this->call(RolesSeeder::class);
         $this->call(PermissionsSeeder::class);
+        $this->call(RolesSeeder::class);
         $this->call(UsersSeeder::class);
         $this->call(TypeArticlesSeeder::class);
         $this->call(StatutLocationSeeder::class);
         $this->call(DureeLocationSeeder::class);
         Article::factory(100)->create();
+        Client::factory(100)->create();
         // TypeArticle::factory(100)->create();
         // ProprieteArticle::factory(100)->create();
 

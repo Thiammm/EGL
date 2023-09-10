@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
+
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class RolesSeeder extends Seeder
@@ -13,9 +15,13 @@ class RolesSeeder extends Seeder
      */
     public function run(): void
     {
-        Role::create(['nom' => 'employe']);
-        Role::create(['nom' => 'manager']);
-        Role::create(['nom' => 'admin']);
-        Role::create(['nom' => 'super-admin']);
+        $employe = Role::create(['name' => 'employe']);
+        $manager = Role::create(['name' => 'manager']);
+        $admin = Role::create(['name' => 'admin']);
+        $superAdmin = Role::create(['name' => 'super-admin']);
+
+        $permissionsEmploye = Permission::all()->whereIn('name', ['gestion clientelle', 'gestion location', 'gestion inventaire', 'recouvrement']);
+        $employe->syncPermissions($permissionsEmploye);
+        $admin->givePermissionTo('affiche dashboard');
     }
 }
