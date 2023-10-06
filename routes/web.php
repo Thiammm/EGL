@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Livewire\Utilisateurs;
-use App\Http\Livewire\TypeArticleCompenent;
-use App\Http\Livewire\ArticleCompenent;
-use App\Http\Livewire\TarificationCompenent;
-use App\Http\Livewire\ClientCompenent;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Livewire\PrintCompenent;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\ClientCompenent;
+use App\Http\Livewire\ArticleCompenent;
+use App\Http\Livewire\LocationCompenent;
+use App\Http\Livewire\PaiementCompenent;
+use App\Http\Livewire\TypeArticleCompenent;
+use App\Http\Livewire\TarificationCompenent;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,14 +46,25 @@ Route::prefix('admin')->name('admin.')->middleware("auth")->group(function(){
         Route::get('/typearticles', TypeArticleCompenent::class)->name('typearticles.index');
         Route::get('/articles',ArticleCompenent::class)->name('articles.index');
         Route::get('/articles/{articleId}/tarifications',TarificationCompenent::class)->name('articles.tarifications.index');
-        // Route::get('/clients',ClientCompenent::class)->name('clients.index');
     });
 });
 
 Route::prefix('admin')->name('admin.')->middleware("auth")->group(function(){
     Route::prefix('gestionclients')->name('gestionclients.')->group(function(){
-        // Route::get('/', [HomeController::class, 'index']);
         Route::get('/clients',ClientCompenent::class)->name('clients.index');
+    });
+});
+
+Route::prefix('admin')->name('admin.')->middleware("auth")->group(function(){
+    Route::prefix('gestionlocations')->name('gestionlocations.')->group(function(){
+        Route::get('/locations', LocationCompenent::class)->name('locations.index');
+    });
+});
+
+
+Route::prefix('admin')->name('admin.')->middleware("auth")->group(function(){
+    Route::prefix('gestionpaiements')->name('gestionpaiements.')->group(function(){
+        Route::get('/paiements', PaiementCompenent::class)->name('paiements.index');
     });
 });
 
