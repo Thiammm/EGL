@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Article;
+use App\Models\Paiement;
 use App\Models\TypeArticle;
 use Illuminate\Support\Str;
 use App\Models\ProprieteArticle;
@@ -56,6 +57,26 @@ use App\Models\ProprieteArticle;
         $type = TypeArticle::find($id);
         // dd($type->nom);
         return $type->nom;
+    }
+
+    function estPasVide($tableaux){
+        $result = 0;
+        foreach($tableaux as $table){
+            if($table)
+                $result++;
+        }
+        return $result;
+    }
+
+    function estEffectue($location){
+        $test = 0;
+        $paiements = Paiement::all();
+        foreach($paiements as $paiement){
+            if($paiement->location_id == $location->id){
+                $test++;
+            }
+        }
+        return $test;
     }
 
 

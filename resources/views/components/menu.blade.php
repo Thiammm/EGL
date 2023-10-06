@@ -105,7 +105,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{route('admin.gestionlocations.locations.index')}}" class="nav-link {{setMenuClass("admin.gestionlocations.locations", "active")}}">
                 <i class="nav-icon fas fa-exchange-alt"></i>
                 <p>
                     Gestion des locations
@@ -114,7 +114,7 @@
         </li>
         <li class="nav-header">CAISSE</li>
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{route('admin.gestionpaiements.paiements.index')}}" class="nav-link {{setMenuClass('admin.gestionpaiements.paiements', "active")}}">
                 <i class="nav-icon fas fa-coins"></i>
                 <p>
                     Gestion des paiements

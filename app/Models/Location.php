@@ -12,6 +12,9 @@ class Location extends Model
     protected $fillable = [
         'dateDebut',
         'dateFin',
+        'statut_location_id',
+        'user_id',
+        'client_id',
     ];
 
     public function articles(){
@@ -26,7 +29,7 @@ class Location extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function clien(){
+    public function client(){
         return $this->belongsTo(Client::class);
     }
 
