@@ -54,6 +54,15 @@
                         @enderror
                     </div>
 
+                    <div class="form-group">
+                        <label for="password">Pasword</label>
+                        <input type="password" wire:model="newUser.password" id="password" class="form-control @error("newUser.password")is-invalid @enderror" placeholder="Votre Mot de Pass" />
+
+                        @error("newUser.password")
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     <div class="row">
 
                         <div class="col-lg-6">

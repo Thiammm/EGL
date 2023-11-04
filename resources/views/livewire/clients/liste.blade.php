@@ -27,7 +27,7 @@
             </tr>
         </thead>
         <tbody>
-        @foreach($clients as $client)
+        @forelse($clients as $client)
             <tr>
                 <td>
                     @if($client->sexe == "H")
@@ -51,12 +51,22 @@
                     <button class="btn btn-link" wire:click.prevent='confirmDelete({{$client->id}})'><i class="far fa-trash-alt"></i></button>
                 </td> 
             </tr>
-        @endforeach
+        @empty
+        <tr>
+            <td colspan='6'>
+                <div class="alert alert-info m-2 text-center">
+                    <h5><i class="icon fas fa-ban"></i> Information !</h5>
+                    Aucun Client pour le moment
+                </div>
+            </td>
+        </tr>
+        
+        @endforelse
         </tbody>
     </table>
     </div>
 
-    <div class="card-footer float-right">
+    <div class="card-footer">
         <div class="float-right">
             {{$clients->links()}}
         </div>

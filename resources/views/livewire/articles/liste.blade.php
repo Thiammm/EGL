@@ -81,10 +81,10 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="5">
-                        <div class="alert alert-danger">
+                    <td colspan="6">
+                        <div class="alert alert-danger text-center">
                             <h5><i class="icon fas fa-ban"></i> Alert!</h5>
-                            aucune données trouvées par rapport aux éléments de recherches entrés.
+                            aucun article trouvé.
                           </div>
                     </td>
                 </tr>

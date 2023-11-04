@@ -9,6 +9,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Illuminate\pagination\paginator;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
 
 class Utilisateurs extends Component
@@ -92,6 +93,7 @@ class Utilisateurs extends Component
             "newUser.nom" => "required",
             "newUser.sexe" => "required",
             "newUser.email" => ["required", "email", Rule::unique("users", "email")],
+            "newUser.password" => ["required"],
             "newUser.telephone1" => "required|numeric",
             "newUser.telephone2" => "numeric",
             "newUser.pieceIdentite" => "required",
@@ -122,7 +124,7 @@ class Utilisateurs extends Component
 
     public function addUser(){
         $donneesValides = $this->validate();
-        $donneesValides["newUser"]["password"] = "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi";
+        $donneesValides["newUser"]["password"] = Hash::make($donneesValides["newUser"]["password"]);
         $donneesValides["newUser"]["imgUrl"] = "sdfdsfsfsdfdfdsfsdfs";
         User::create($donneesValides["newUser"]); 
         $this->newUser = [];
@@ -152,6 +154,8 @@ class Utilisateurs extends Component
     }
 
     public function editUser($id){
+        // $user = User::find($id);
+        // dd($user->roles);
         $this->isBtnClick = "edit";
         $this->user_id = $id;
         $user = User::find($id);
@@ -161,22 +165,22 @@ class Utilisateurs extends Component
         $this->userRoles = $user->roles;
         $this->userPermissions = $user->permissions;
         foreach($this->allRoles as $role){
-            $nom = $role->name;
-            $this->rolesUpdated[$nom] = null;
+            $nom1 = $role->name;
+            $this->rolesUpdated[$nom1] = null;
         }
         foreach($this->userRoles as $userRole){
-            $nom = $userRole->name;
-            $this->rolesUpdated[$nom] = true;
+            $nom2 = $userRole->name;
+            $this->rolesUpdated[$nom2] = true;
         }
 
         foreach($this->allPermissions as $permission){
-            $nom = $permission->name;
-           $this->permissionsUpdated[$nom] = null; 
+            $nom3 = $permission->name;
+           $this->permissionsUpdated[$nom3] = null; 
         }
 
         foreach($this->userPermissions as $userPermission){
-            $nom = $userPermission->name;
-            $this->permissionsUpdated[$nom] = true;
+            $nom4 = $userPermission->name;
+            $this->permissionsUpdated[$nom4] = true;
         }
     }
 

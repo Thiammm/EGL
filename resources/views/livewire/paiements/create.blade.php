@@ -50,9 +50,10 @@
         <table class="table table-striped">
           <thead>
           <tr>
-            <th>Qty</th>
+            <th>ID</th>
             <th>Article</th>
             <th>Serial #</th>
+            <th>Durée Location</th>
             <th>Subtotal</th>
           </tr>
           </thead>
@@ -62,11 +63,36 @@
              <td>{{$article->id}}</td>
              <td>{{$article->nom}}</td>
              <td>{{$article->noSerie}}</td>
-             <td>{{$article->estDisponible}}</td>
+             <td>
+                @if(intervalJour($location) >= 7)
+                  @if(modulo($location))
+                  {{intervalSemaine($location)}} semaine(s) et {{modulo($location)}} jours
+                  @else
+                  {{intervalSemaine($location)}} semaine(s)
+                  @endif
+                @else
+                  {{intervalJour($location)}} jour(s)
+                @endif
+            </td>
+            <td>
+              @if(dateDiff($location->dateDebut, $location->dateFin)->d >= 7)
+                @if(modulo($location))
+                {{intervalSemaine($location) * prix($article, 3) + modulo($location) * prix($article, 1)}} XAF
+                @else
+                  {{intervalSemaine($location) * prix($article, 3)}} XAF
+                @endif
+              @else
+                {{intervalJour($location) * prix($article, 1)}} XAF
+              @endif
+            </td>
              </tr>
              @empty
                 <td colspan="4" class="text-center">Aucun articles selectionné</td> 
              @endforelse
+             <tr>
+                <td colspan="4" class="text-center"><h2>Total</h2></td>
+                <td><h2>{{total($location, $total)}} XAF</h2></td>
+             </tr>
           </tbody>
         </table>
       </div>
@@ -90,31 +116,6 @@
         </p>
       </div>
       <!-- /.col -->
-      <div class="col-6">
-        <p class="lead">Amount Due 2/22/2014</p>
-
-        <div class="table-responsive">
-          <table class="table">
-            <tbody><tr>
-              <th style="width:50%">Subtotal:</th>
-              <td>$250.30</td>
-            </tr>
-            <tr>
-              <th>Tax (9.3%)</th>
-              <td>$10.34</td>
-            </tr>
-            <tr>
-              <th>Shipping:</th>
-              <td>$5.80</td>
-            </tr>
-            <tr>
-              <th>Total:</th>
-              <td>$265.24</td>
-            </tr>
-          </tbody></table>
-        </div>
-      </div>
-      <!-- /.col -->
     </div>
     <!-- /.row -->
 
@@ -122,7 +123,8 @@
     <div class="row no-print">
       <div class="col-12">
         <button id="print" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</button>
-        <button type="button" wire:click='savePayment({{$location->id}})' class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
+        <button type="button" class="btn btn-danger" wire:click.prevent="goToList()">Retour</button>
+        <button type="button" wire:click='terminerPayment($location->id)'  data-bs-toggle="modal" data-bs-target="#modalPayment" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
           Payment
         </button>
         <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
@@ -130,6 +132,90 @@
         </button>
       </div>
     </div>
+
+    <div wire:ignore.self class="modal fade" id="modalPayment" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"  role="dialog">
+      <div class="modal-dialog modal-xl modal-dialog-scrollable">
+          <div class="modal-content">
+          <!-- Modal Header -->
+              <div class="modal-header">
+                  <h4 class="modal-title">Terminer le Payment</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+          <!-- Modal body -->
+          <form>
+            @csrf
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-12 table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                    <tr>
+                      <th>Qty</th>
+                      <th>Article</th>
+                      <th>Serial #</th>
+                      <th>Durée Location</th>
+                      <th>Subtotal</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      @forelse ($location->articles as $article)
+                       <tr>
+                       <td>{{$article->id}}</td>
+                       <td>{{$article->nom}}</td>
+                       <td>{{$article->noSerie}}</td>
+                       <td>
+                          @if(intervalJour($location) >= 7)
+                            @if(modulo($location))
+                            {{intervalSemaine($location)}} semaine(s) et {{modulo($location)}} jours
+                            @else
+                            {{intervalSemaine($location)}} semaine(s)
+                            @endif
+                          @else
+                            {{intervalJour($location)}} jour(s)
+                          @endif
+                      </td>
+                      <td>
+                        @if(dateDiff($location->dateDebut, $location->dateFin)->d >= 7)
+                          @if(modulo($location))
+                          {{intervalSemaine($location) * prix($article, 3) + modulo($location) * prix($article, 1)}} XAF
+                          @else
+                            {{intervalSemaine($location) * prix($article, 3)}} XAF
+                          @endif
+                        @else
+                          {{intervalJour($location) * prix($article, 1)}} XAF
+                        @endif
+                      </td>
+                       </tr>
+                      @empty
+                          <td colspan="4" class="text-center">Aucun articles selectionné</td> 
+                      @endforelse
+                       <tr>
+                        <td colspan="4" class="text-center"><h2>Total</h2></td>
+                        <td><h2>{{total($location, $total)}} XAF</h2></td>
+                       </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.col -->
+              </div>
+              <div class="form-group">
+                <label for="sommeRuçue">Somme Reçue:</label>
+                <input type="text" wire:model='sommeRecue' id="sommeReçue" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="difference">Somme a Remettre:</label>
+                <input type="text" id="difference" class="form-control" value="{{intval($sommeRecue) - total($location, $total)}}">
+              </div>
+            </div>
+          </form>
+
+          <!-- Modal footer -->
+              <div class="modal-footer">
+                <button type="button" wire:click.prevent()='savePayment({{$location->id}})' class="btn btn-success" data-bs-dismiss="modal">Terminer</button>
+              </div>
+          </div>
+      </div>
+  </div>
 
     <script>
         var myPrint = document.getElementById('print');

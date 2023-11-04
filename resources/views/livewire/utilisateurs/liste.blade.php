@@ -58,27 +58,27 @@
         </div>
     </div> 
 
-    <script>
-        window.addEventListener("showSuccessMessage", function(e){
-            Swal.fire(e.detail)
-        });
-
-        window.addEventListener("showConfirmMessage", function(e){
-            Swal.fire(e.detail).then((result)=>{
-                if(result.isConfirmed){
-                @this.deleteUser(e.detail.id)
-                }
-            })
-        });
-
-        window.addEventListener("showConfirmMessageReset", function(e){
-            Swal.fire(e.detail).then((result)=>{
-                if(result.isConfirmed){
-                @this.reinitialiser(e.detail.id)
-                }
-            })
-        });
-        
-    </script>
-
 </div>
+
+<script>
+    window.addEventListener("showSuccessMessage", function(e){
+        Swal.fire(e.detail)
+    });
+
+    window.addEventListener("showConfirmMessage", function(e){
+        Swal.fire(e.detail).then((result)=>{
+            if(result.isConfirmed){
+            @this.deleteUser(e.detail.id)
+            }
+        })
+    });
+
+    window.addEventListener("showConfirmMessageReset", function(e){
+        Swal.fire(e.detail).then((result)=>{
+            if(result.isConfirmed){
+            @this.reinitialiser(e.detail.id)
+            }
+        })
+    });
+    
+</script>
