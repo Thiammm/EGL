@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Livewire\Utilisateurs;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Livewire\PrintCompenent;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\ClientCompenent;
 use App\Http\Livewire\ArticleCompenent;
 use App\Http\Livewire\LocationCompenent;
 use App\Http\Livewire\PaiementCompenent;
+use App\Http\Livewire\DashboardCompenent;
 use App\Http\Livewire\TypeArticleCompenent;
 use App\Http\Livewire\TarificationCompenent;
 
@@ -65,6 +65,12 @@ Route::prefix('admin')->name('admin.')->middleware("auth")->group(function(){
 Route::prefix('admin')->name('admin.')->middleware("auth")->group(function(){
     Route::prefix('gestionpaiements')->name('gestionpaiements.')->group(function(){
         Route::get('/paiements', PaiementCompenent::class)->name('paiements.index');
+    });
+});
+
+Route::prefix('admin')->name('admin.')->middleware("auth")->group(function(){
+    Route::prefix('dashboard')->name('dashboard.')->group(function(){
+        Route::get('/dashboard', DashboardCompenent::class)->name('index');
     });
 });
 

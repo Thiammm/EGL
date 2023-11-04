@@ -79,5 +79,50 @@ use App\Models\ProprieteArticle;
         return $test;
     }
 
+    function dateDiff($date1, $date2){
+        $object1 = date_create($date1);
+        $object2 = date_create($date2);
+        return date_diff($object1, $object2);
+    }
+
+    function prix($article, $dureeId){
+        return $article->tarifications->where('duree_location_id', $dureeId)->first()->prix;
+    }
+
+    function modulo($location){
+        return dateDiff($location->dateDebut, $location->dateFin)->days %7;
+    }
+
+    function intervalSemaine($location){
+        return intval(dateDiff($location->dateDebut, $location->dateFin)->days / 7);
+    }
+
+    function intervalJour($location){
+        return dateDiff($location->dateDebut, $location->dateFin)->days;
+    }
+
+    function total($location, $total){
+        foreach($location->articles as $article){
+            if(dateDiff($location->dateDebut, $location->dateFin)->d >= 7){
+                if(modulo($location)){
+                    $total = $total + intervalSemaine($location) * prix($article, 3) + modulo($location) * prix($article, 1);
+                }
+                else{
+                $total = $total + intervalSemaine($location) * prix($article, 3);
+                }
+            }          
+            else{
+                $total = $total + intervalJour($location) * prix($article, 1);
+            }
+        }
+        return $total;
+    }
+
+    // La fonction dansPeriode permettra de personaliser le dashboard par rapport aux differentes périodes
+
+    function dansPeriode($location){
+        return dateDiff($location->updated_at, now())->d;
+    }
+
 
     

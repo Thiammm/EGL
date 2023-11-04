@@ -20,5 +20,6 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'gestion inventaire']);
         Permission::create(['name' => 'recouvrement']);
         Permission::create(['name' => 'affiche dashboard']);
+        Permission::create(['name' => 'gestion utilisateurs']);
     }
 }

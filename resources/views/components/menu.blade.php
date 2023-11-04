@@ -12,31 +12,30 @@
     
         @can('affiche dashboard')
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{route("admin.dashboard.index")}}" class="nav-link {{setMenuClass("admin.dashboard.","active")}}">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                     Tableau de bord
-                    <i class="right fas fa-angle-left"></i>
                 </p>
             </a>
-            <ul class="nav nav-treeview">
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+            {{-- <ul class="nav nav-treeview"> --}}
+                {{-- <li class="nav-item">
+                    <a href="{{route("admin.dashboard.index")}}" class="nav-link {{setMenuClass("admin.dashboard.","active")}}">
                         <i class="fas fa-chart-line nav-icon"></i>
                         <p>Vue globale</p>
                     </a>
-                </li>
-                <li class="nav-item">
+                </li> --}}
+                {{-- <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="fas fa-swatchbook nav-icon"></i>
                         <p>Locations</p>
                     </a>
-                </li>
-            </ul>
+                </li> --}}
+            {{-- </ul> --}}
         </li>
         @endcan
 
-        @can('gestion inventaire')
+        @can('gestion utilisateurs')
         <li class="nav-item {{setMenuClass("admin.habilitations.", "menu-open")}}">
             <a href="{{route("admin.habilitations.")}}" class="nav-link {{setMenuClass("admin.habilitations.","active")}}">
                 <i class="nav-icon fas fa-user-shield"></i>

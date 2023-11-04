@@ -10,6 +10,8 @@ class Paiement extends Model
     use HasFactory;
 
     protected $fillable = [
+        "user_id",
+        'location_id',
         'montantPaye',
         'datePaiement',
     ];

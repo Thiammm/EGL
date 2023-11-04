@@ -42,8 +42,8 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4">
-                                    <div class="alert alert-info m-2">
+                                <td colspan="7">
+                                    <div class="alert alert-info m-2 text-center">
                                         <h5><i class="icon fas fa-ban"></i> Information !</h5>
                                         Aucune Location à afficher
                                     </div>
